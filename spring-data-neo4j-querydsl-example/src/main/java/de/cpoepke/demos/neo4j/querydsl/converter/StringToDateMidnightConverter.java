@@ -23,23 +23,24 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  *
- * $Last modified: Mi, 28 Aug 2013 01:44:22 +0200 $
+ * $Last modified: Di, 27 Aug 2013 20:59:44 +0200 $
  * $Author: cpoepke $
  */
 
-package de.cpoepke.demos.neo4j.querydsl.repository;
+package de.cpoepke.demos.neo4j.querydsl.converter;
 
-import de.cpoepke.demos.neo4j.querydsl.domain.User;
-import org.springframework.data.neo4j.annotation.Query;
-import org.springframework.data.neo4j.repository.CypherDslRepository;
-import org.springframework.data.neo4j.repository.GraphRepository;
+import org.joda.time.DateMidnight;
+import org.springframework.core.convert.converter.Converter;
 
-import java.util.List;
+/**
+ * User: Conrad Pöpke
+ * Date: 27.08.13
+ * Time: 19:28
+ */
+public class StringToDateMidnightConverter implements Converter<String, DateMidnight> {
 
-public interface UserRepository extends GraphRepository<User>, CypherDslRepository<User> {
-
-    User findByUsernameAndPassword(String username, String password);
-
-    @Query("START user=node:users(username={0}) WHERE user.password={1} RETURN (user)")
-    User findByUsernameAndPasswordQuery(String username, String password);
+    @Override
+    public DateMidnight convert(String source) {
+        return DateMidnight.parse(source);
+    }
 }

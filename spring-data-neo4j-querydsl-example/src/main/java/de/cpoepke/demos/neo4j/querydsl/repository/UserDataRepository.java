@@ -23,23 +23,15 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  *
- * $Last modified: Mi, 28 Aug 2013 01:44:22 +0200 $
+ * $Last modified: Do, 22 Aug 2013 14:37:47 +0200 $
  * $Author: cpoepke $
  */
 
 package de.cpoepke.demos.neo4j.querydsl.repository;
 
-import de.cpoepke.demos.neo4j.querydsl.domain.User;
-import org.springframework.data.neo4j.annotation.Query;
+import de.cpoepke.demos.neo4j.querydsl.domain.UserData;
 import org.springframework.data.neo4j.repository.CypherDslRepository;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
-import java.util.List;
-
-public interface UserRepository extends GraphRepository<User>, CypherDslRepository<User> {
-
-    User findByUsernameAndPassword(String username, String password);
-
-    @Query("START user=node:users(username={0}) WHERE user.password={1} RETURN (user)")
-    User findByUsernameAndPasswordQuery(String username, String password);
+public interface UserDataRepository extends GraphRepository<UserData>, CypherDslRepository<UserData> {
 }

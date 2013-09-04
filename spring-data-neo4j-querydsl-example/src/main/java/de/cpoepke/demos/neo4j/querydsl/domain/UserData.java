@@ -23,7 +23,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  *
- * $Last modified: Mi, 28 Aug 2013 21:52:28 +0200 $
+ * $Last modified: Do, 29 Aug 2013 00:55:12 +0200 $
  * $Author: cpoepke $
  */
 
@@ -33,40 +33,43 @@ import com.mysema.query.annotations.QueryEntity;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.joda.time.DateMidnight;
 import org.springframework.data.neo4j.annotation.*;
-import org.springframework.data.neo4j.support.index.IndexType;
 
 import java.io.Serializable;
 
 @NodeEntity
 @QueryEntity
-public class User implements Serializable {
+public class UserData implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public static final String USER_DATA = "USER_DATA";
+    public static final String USER = "USER";
 
     @Indexed
     @GraphId
     private Long id;
 
-    @Indexed(indexType = IndexType.FULLTEXT, unique = true, indexName = "users")
-    private String username;
+    private String name;
 
-    private String password;
+    private String firstName;
+
+    private String email;
+
+    private Long birthday;
 
     @Fetch
-    @RelatedTo(type = USER_DATA)
-    private UserData userData;
+    @RelatedTo(type = USER)
+    private User user;
 
-    public User() {
-        this(null, null, null);
+    public UserData() {
     }
 
-    public User(String username, String password, UserData userData) {
-        this.username = username;
-        this.password = password;
-        this.userData = userData;
+    public UserData(String name, String firstName, String email, DateMidnight birthday) {
+        this.name = name;
+        this.firstName = firstName;
+        this.email = email;
+        setBirthdayDateMidnight(birthday);
     }
 
     public Long getId() {
@@ -77,39 +80,63 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public UserData getUserData() {
-        return userData;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserData(UserData userData) {
-        this.userData = userData;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Long getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Long birthday) {
+        this.birthday = birthday;
+    }
+
+    public DateMidnight getBirthdayDateMidnight() {
+        return new DateMidnight(birthday);
+    }
+
+    public void setBirthdayDateMidnight(DateMidnight birthday) {
+        this.birthday = birthday.toDateTimeISO().getMillis();
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof User)) {
+        if (!(obj instanceof UserData)) {
             return false;
         }
         if (this == obj) {
             return true;
         }
-        User rhs = (User) obj;
+        UserData rhs = (UserData) obj;
         return new EqualsBuilder()
                 .append(id, rhs.id)
                 .isEquals();
@@ -126,9 +153,9 @@ public class User implements Serializable {
     public String toString() {
         return new ToStringBuilder(this)
                 .append(id)
-                .append(username)
-                .append(password)
+                .append(firstName)
+                .append(name)
+                .append(birthday)
                 .toString();
     }
-
 }

@@ -31,7 +31,10 @@ package de.cpoepke.demos.neo4j.querydsl;
 
 import de.cpoepke.demos.neo4j.querydsl.domain.QUser;
 import de.cpoepke.demos.neo4j.querydsl.domain.User;
+import de.cpoepke.demos.neo4j.querydsl.domain.UserData;
+import de.cpoepke.demos.neo4j.querydsl.repository.UserDataRepository;
 import de.cpoepke.demos.neo4j.querydsl.repository.UserRepository;
+import org.joda.time.DateMidnight;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.neo4j.cypherdsl.expression.StartExpression;
@@ -56,23 +59,38 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private UserDataRepository userDataRepository;
+
+    @Autowired
+    private Neo4jTemplate template;
+
     @Before
     @Transactional
     public void setUp() {
-        createUser("hwurst", "123pass");
-        createUser("jsmith", "pass123");
+        UserData userData = createUserData("Hans", "Wurst", new DateMidnight(1980, 1, 1));
+        createUser(userData, "hwurst", "123pass");
+        userData = createUserData("John", "Smith", new DateMidnight(2013, 1, 1));
+        createUser(userData, "jsmith", "pass123");
     }
 
     @After
     @Transactional
     public void tearDown() {
+        userDataRepository.deleteAll();
         repository.deleteAll();
     }
 
     @Test
-    public void testFindByUsernameAndPasswordSpringData() {
+    public void testFindByUsernameAndPasswordSpringDataMethodQuery() {
         assertNull(repository.findByUsernameAndPassword("hwurst", "somepassword"));
         assertNotNull(repository.findByUsernameAndPassword("hwurst", "123pass"));
+    }
+
+    @Test
+    public void testFindByUsernameAndPasswordSpringDataAnnotatedQuery() {
+        assertNull(repository.findByUsernameAndPasswordQuery("hwurst", "somepassword"));
+        assertNotNull(repository.findByUsernameAndPasswordQuery("hwurst", "123pass"));
     }
 
     @Test
@@ -92,13 +110,13 @@ public class UserRepositoryTest {
         assertNotNull(user);
         assertEquals("hwurst", user.getUsername());
 
-        execute = start(domainStartNodes("user", User.class))
+        execute = start(domainStartNodes( "user", User.class))
                 .where(toBooleanExpression(qUser.username.eq("hwurst").and(qUser.password.eq("somepassword"))))
                 .returns(node("user"));
         assertNull(repository.query(execute, map()).singleOrNull());
 
         qUser = QUser.user;
-        execute = start(domainStartNodes("user", User.class))
+        execute = start(domainStartNodes( "user", User.class))
                 .where(toBooleanExpression(qUser.username.eq("hwurst").and(qUser.password.eq("123pass"))))
                 .returns(node("user"));
 
@@ -110,15 +128,26 @@ public class UserRepositoryTest {
     /**
      * Test data helper methods
      */
+
     private StartExpression domainStartNodes(String name, Class clazz) {
-        return lookup(name, IndexingNodeTypeRepresentationStrategy.INDEX_NAME, IndexingNodeTypeRepresentationStrategy.INDEX_KEY, clazz.getCanonicalName());
+        return lookup(name, IndexingNodeTypeRepresentationStrategy.INDEX_NAME, IndexingNodeTypeRepresentationStrategy.INDEX_KEY, clazz.getCanonicalName() );
     }
 
-    private User createUser(String username, String password) {
+    private User createUser(UserData userData, String username, String password) {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
+        user.setUserData(userData);
         repository.save(user);
         return user;
+    }
+
+    private UserData createUserData(String name, String firstName, DateMidnight birthday) {
+        UserData userData = new UserData();
+        userData.setName(name);
+        userData.setFirstName(firstName);
+        userData.setBirthdayDateMidnight(birthday);
+        template.save(userData);
+        return userData;
     }
 }
