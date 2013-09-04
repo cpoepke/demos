@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="javax.validation.constraints.Size.message">'${label}' size must be between ${min} and ${max}</entry>
+    <entry key="javax.validation.constraints.NotNull.message">'${label}' may not be null</entry>
+    <!--entry key="username.javax.validation.constraints.NotNull.message">Username cannot be empty.</entry-->
+    <entry key="password.javax.validation.constraints.NotNull.message">'Password' cannot be empty.</entry>
+    <!--entry key="username.javax.validation.constraints.Size.message">'Username' has to be between 3 and 10 characters.</entry-->
+    <entry key="password.javax.validation.constraints.Size.message">'Password' has to be between 3 and 10 characters.</entry>
+    <entry key="password_pattern">Enter a password with a length between 6 and 20 characters, containing at least one number, one lower case and one upper case character.</entry>
+</properties>

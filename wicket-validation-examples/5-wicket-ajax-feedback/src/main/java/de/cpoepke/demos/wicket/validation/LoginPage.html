@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+	<head>
+		<meta charset="utf-8" />
+		<title>Wicket Validation Example</title>
+		<link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:regular,bold' rel='stylesheet' type='text/css' />
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen" title="Stylesheet" />
+	</head>
+	<body>
+		<div id="hd">
+			<div id="logo">
+                <h1>Wicket Ajax Validation Feedback</h1>
+			</div>
+		</div>
+		<div id="bd">
+            <form method="post" action="" wicket:id="form">
+                <legend>Login</legend>
+                <fieldset>
+                    <div wicket:id="username"/>
+                    <div wicket:id="password"/>
+                    <div>
+                        <button wicket:id="submit" type="submit" name="submit">Login</button>
+                    </div>
+                </fieldset>
+            </form>
+		</div>
+		<div id="ft">
+		</div>
+	</body>
+</html>
