@@ -32,6 +32,8 @@ package de.cpoepke.demos.neo4j.querydsl.repository;
 import de.cpoepke.demos.neo4j.querydsl.domain.UserData;
 import org.springframework.data.neo4j.repository.CypherDslRepository;
 import org.springframework.data.neo4j.repository.GraphRepository;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 public interface UserDataRepository extends GraphRepository<UserData>, CypherDslRepository<UserData> {
 }

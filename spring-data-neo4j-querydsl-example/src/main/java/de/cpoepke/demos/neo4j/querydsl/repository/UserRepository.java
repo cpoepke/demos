@@ -33,9 +33,11 @@ import de.cpoepke.demos.neo4j.querydsl.domain.User;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.CypherDslRepository;
 import org.springframework.data.neo4j.repository.GraphRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 public interface UserRepository extends GraphRepository<User>, CypherDslRepository<User> {
 
     User findByUsernameAndPassword(String username, String password);

@@ -53,7 +53,6 @@ import static org.neo4j.helpers.collection.MapUtil.map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:application-context-test.xml")
-@Transactional
 public class UserRepositoryTest {
 
     @Autowired
@@ -66,7 +65,6 @@ public class UserRepositoryTest {
     private Neo4jTemplate template;
 
     @Before
-    @Transactional
     public void setUp() {
         UserData userData = createUserData("Hans", "Wurst", new DateMidnight(1980, 1, 1));
         createUser(userData, "hwurst", "123pass");
@@ -75,11 +73,18 @@ public class UserRepositoryTest {
     }
 
     @After
-    @Transactional
     public void tearDown() {
         userDataRepository.deleteAll();
         repository.deleteAll();
     }
+
+    @Test
+    public void testRun() throws InterruptedException {
+        while (true) {
+            Thread.sleep(1000);
+        }
+    }
+
 
     @Test
     public void testFindByUsernameAndPasswordSpringDataMethodQuery() {
@@ -146,8 +151,8 @@ public class UserRepositoryTest {
         UserData userData = new UserData();
         userData.setName(name);
         userData.setFirstName(firstName);
-        userData.setBirthdayDateMidnight(birthday);
-        template.save(userData);
+        userData.setBirthday(birthday);
+        userDataRepository.save(userData);
         return userData;
     }
 }

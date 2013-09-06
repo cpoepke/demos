@@ -56,7 +56,7 @@ public class UserData implements Serializable {
 
     private String email;
 
-    private Long birthday;
+    private DateMidnight birthday;
 
     @Fetch
     @RelatedTo(type = USER)
@@ -69,7 +69,7 @@ public class UserData implements Serializable {
         this.name = name;
         this.firstName = firstName;
         this.email = email;
-        setBirthdayDateMidnight(birthday);
+        this.birthday = birthday;
     }
 
     public Long getId() {
@@ -104,20 +104,12 @@ public class UserData implements Serializable {
         this.email = email;
     }
 
-    public Long getBirthday() {
+    public DateMidnight getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Long birthday) {
+    public void setBirthday(DateMidnight birthday) {
         this.birthday = birthday;
-    }
-
-    public DateMidnight getBirthdayDateMidnight() {
-        return new DateMidnight(birthday);
-    }
-
-    public void setBirthdayDateMidnight(DateMidnight birthday) {
-        this.birthday = birthday.toDateTimeISO().getMillis();
     }
 
     public User getUser() {
