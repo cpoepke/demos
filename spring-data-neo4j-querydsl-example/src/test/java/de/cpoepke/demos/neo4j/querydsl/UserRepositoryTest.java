@@ -78,12 +78,12 @@ public class UserRepositoryTest {
         repository.deleteAll();
     }
 
-    @Test
+    /*@Test
     public void testRun() throws InterruptedException {
         while (true) {
             Thread.sleep(1000);
         }
-    }
+    }*/
 
 
     @Test
