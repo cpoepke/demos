@@ -33,11 +33,12 @@
 
     <artifactId>neo4j-spring-data-querydsl-example</artifactId>
     <groupId>de.cpoepke.demos</groupId>
-    <packaging>jar</packaging>
     <version>1.0.0-SNAPSHOT</version>
+
+    <packaging>jar</packaging>
+
     <name>Neo4j, Spring Data and QueryDSL Example</name>
     <description>Example project showing how to combine the power of Neo4j, Spring Data and QueryDSL</description>
-
 
     <dependencies>
         <!-- Spring -->
@@ -141,6 +142,7 @@
                 <directory>generated-src</directory>
             </resource>
         </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -185,4 +187,11 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>neo4j-releases</id>
+            <url>http://m2.neo4j.org/releases/</url>
+        </repository>
+    </repositories>
 </project>
