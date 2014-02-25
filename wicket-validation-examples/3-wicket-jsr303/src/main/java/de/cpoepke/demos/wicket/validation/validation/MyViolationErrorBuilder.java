@@ -54,7 +54,7 @@ abstract class MyViolationErrorBuilder<T>
         final String key = extractKey(messageTemplate);
         if (key != null)
         {
-            ve.addMessageKey(key);
+            ve.addKey(key);
         }
         return ve;
     }

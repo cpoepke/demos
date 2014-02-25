@@ -3,21 +3,21 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-        <artifactId>wicket-validation-example</artifactId>
-        <groupId>de.cpoepke</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
 	<groupId>de.cpoepke</groupId>
 	<artifactId>2-wicket-custom-validator</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
 	<packaging>war</packaging>
-	<version>1.0-SNAPSHOT</version>
+
 	<name>Wicket Custom Validator</name>
+    <description>Example showing the usage of Wicket custom validators</description>
+
 	<properties>
 		<wicket.version>6.3.0</wicket.version>
 		<jetty.version>7.6.3.v20120416</jetty.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
 	<dependencies>
 		<!--  WICKET DEPENDENCIES -->
 		<dependency>
@@ -54,6 +54,7 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<resources>
 			<resource>
@@ -69,6 +70,7 @@
 				</excludes>
 			</resource>
 		</resources>
+
 		<testResources>
 			<testResource>
 				<directory>src/test/resources</directory>
@@ -83,6 +85,7 @@
 				</excludes>
 			</testResource>
 		</testResources>
+
 		<plugins>
 			<plugin>
 				<inherited>true</inherited>
@@ -139,4 +142,4 @@
 			</snapshots>
 		</repository>
 	</repositories>
-	</project>
+</project>

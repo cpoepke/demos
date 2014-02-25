@@ -4,17 +4,22 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>de.cpoepke</groupId>
 	<artifactId>1-wicket-validation</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
 	<packaging>war</packaging>
-	<version>1.0-SNAPSHOT</version>
+
 	<name>Simple Wicket Validation</name>
-	<description></description>
+	<description>Example showing simple Wicket validation</description>
+
 	<properties>
 		<wicket.version>6.3.0</wicket.version>
 		<jetty.version>7.6.3.v20120416</jetty.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
 	<dependencies>
 		<!--  WICKET DEPENDENCIES -->
 		<dependency>
@@ -51,6 +56,7 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<resources>
 			<resource>
@@ -68,6 +74,7 @@
 				</excludes>
 			</resource>
 		</resources>
+
 		<testResources>
 			<testResource>
 				<filtering>false</filtering>
@@ -84,6 +91,7 @@
 				</excludes>
 			</testResource>
 		</testResources>
+
 		<plugins>
 			<plugin>
 				<inherited>true</inherited>
@@ -141,4 +149,4 @@
 			</snapshots>
 		</repository>
 	</repositories>
-	</project>
+</project>
