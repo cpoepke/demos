@@ -1,7 +1,6 @@
 package de.cpoepke.demos.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.common.collect.Lists;
 import com.sun.jersey.server.linking.Binding;
 import com.sun.jersey.server.linking.Link;
 import com.sun.jersey.server.linking.Links;
@@ -14,14 +13,12 @@ import lombok.ToString;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.net.URI;
-import java.util.List;
 import java.util.UUID;
 
 // Lombok annotations
 @Data
-@ToString(exclude = {"partner", "mother", "father", "children"})
-@EqualsAndHashCode(exclude = {"partner", "mother", "father", "children"})
-
+@ToString(exclude = {"partner", "mother", "father"})
+@EqualsAndHashCode(exclude = {"partner", "mother", "father"})
 // Annotation creating link headers as an alternative to links in representations
 @Links(
         {
@@ -47,15 +44,7 @@ import java.util.UUID;
                 method = "get",
                 condition = "${not empty(instance.partner)}",
                 bindings = @Binding(name = "id", value = "${instance.partner.id}")),
-            rel = "partner")//,
-//
-//        @Link(value = @Ref(
-//                // value = "{id}", <= Default
-//                resource = PersonResource.class,
-//                method = "get",
-//                condition = "${not empty(instance.children)}",
-//                bindings = @Binding(name = "id", value = "${instance.children.id}")),
-//            rel = "children")
+            rel = "partner")
         }
 )
 public class Person implements Serializable {
@@ -100,14 +89,4 @@ public class Person implements Serializable {
             condition = "${not empty(instance.partner)}",
             bindings = @Binding(name = "id", value = "${instance.partner.id}"))
     private URI partnerLink;
-
-//    @JsonIgnore
-//    private List<Person> children = Lists.newArrayList();
-//
-//    @Ref(
-//            // value = "{id}", <= Default
-//            resource = PersonResource.class,
-//            method = "get",
-//            bindings = @Binding(name = "id", value = "${instance.children.id}"))
-//    private List<URI> childrenLinks;
 }
