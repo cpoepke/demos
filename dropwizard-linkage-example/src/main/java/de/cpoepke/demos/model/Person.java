@@ -23,7 +23,7 @@ import java.util.UUID;
 @Links(
         {
         @Link(value = @Ref(
-                // value = "{id}", <= Default
+                value = "{id}",
                 resource = PersonResource.class,
                 method = "get",
                 condition = "${not empty(instance.father)}",
@@ -31,7 +31,7 @@ import java.util.UUID;
             rel = "father"),
 
         @Link(value = @Ref(
-                // value = "{id}", <= Default
+                value = "{id}",
                 resource = PersonResource.class,
                 method = "get",
                 condition = "${not empty(instance.mother)}",
@@ -39,7 +39,7 @@ import java.util.UUID;
             rel = "mother"),
 
         @Link(value = @Ref(
-                // value = "{id}", <= Default
+                value = "{id}",
                 resource = PersonResource.class,
                 method = "get",
                 condition = "${not empty(instance.partner)}",
@@ -61,7 +61,7 @@ public class Person implements Serializable {
 
     // Annotation creating link in representation
     @Ref(
-            // value = "{id}", <= Default
+            value = "{id}",
             resource = PersonResource.class,
             method = "get",
             condition = "${not empty(instance.father)}",
@@ -72,7 +72,7 @@ public class Person implements Serializable {
     private Person mother;
 
     @Ref(
-            // value = "{id}", <= Default
+            value = "{id}",
             resource = PersonResource.class,
             method = "get",
             condition = "${not empty(instance.mother)}",
@@ -83,7 +83,7 @@ public class Person implements Serializable {
     private Person partner;
 
     @Ref(
-            // value = "{id}", <= Default
+            value = "{id}",
             resource = PersonResource.class,
             method = "get",
             condition = "${not empty(instance.partner)}",

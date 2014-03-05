@@ -45,6 +45,7 @@ public class PersonRepositoryTest {
     private UUID testAndAssertPut() {
         Person person = new Person();
         person.setName("Max Mustermann");
+        person.setId(UUID.randomUUID());
         Person savedPerson = repo.put(person);
         assertNotNull(savedPerson);
         assertNotNull(savedPerson.getId());
