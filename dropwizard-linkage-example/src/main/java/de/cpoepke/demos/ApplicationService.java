@@ -6,6 +6,7 @@ import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
 import de.cpoepke.demos.health.PersonHealthCheck;
+import de.cpoepke.demos.model.PersonLink;
 import de.cpoepke.demos.repository.PersonRepository;
 import de.cpoepke.demos.resources.PersonResource;
 import lombok.extern.slf4j.Slf4j;
@@ -32,18 +33,22 @@ public class ApplicationService extends Service<ApplicationConfiguration> {
         environment.setJerseyProperty(ResourceConfig.PROPERTY_CONTAINER_RESPONSE_FILTERS, LinkFilter.class);
 
         // Create the family
-        configuration.getAdam().setPartner(configuration.getEva());
+        configuration.getAdam().setPartner(new PersonLink(configuration.getEva()));
+        configuration.getAdam().getChildren().add(new PersonLink(configuration.getKain()));
+        configuration.getAdam().getChildren().add(new PersonLink(configuration.getAbel()));
         repo.put(configuration.getAdam());
 
-        configuration.getEva().setPartner(configuration.getAdam());
+        configuration.getEva().setPartner(new PersonLink(configuration.getAdam()));
+        configuration.getEva().getChildren().add(new PersonLink(configuration.getKain()));
+        configuration.getEva().getChildren().add(new PersonLink(configuration.getAbel()));
         repo.put(configuration.getEva());
 
-        configuration.getKain().setFather(configuration.getAdam());
-        configuration.getKain().setMother(configuration.getEva());
+        configuration.getKain().setFather(new PersonLink(configuration.getAdam()));
+        configuration.getKain().setMother(new PersonLink(configuration.getEva()));
         repo.put(configuration.getKain());
 
-        configuration.getAbel().setFather(configuration.getAdam());
-        configuration.getAbel().setMother(configuration.getEva());
+        configuration.getAbel().setFather(new PersonLink(configuration.getAdam()));
+        configuration.getAbel().setMother(new PersonLink(configuration.getEva()));
         repo.put(configuration.getAbel());
 
         // Initialize Dropwizard Resource and Health Check

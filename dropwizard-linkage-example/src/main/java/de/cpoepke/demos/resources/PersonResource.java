@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.UUID;
 
 @Path("person")
+@Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Setter
 public class PersonResource {
