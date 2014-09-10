@@ -53,5 +53,6 @@
         <module>dropwizard-linkage-example</module>
         <module>neo4j-spring-data-querydsl-example</module>
         <module>wicket-validation-examples</module>
+        <module>performance-playing</module>
     </modules>
 </project>
