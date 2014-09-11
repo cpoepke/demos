@@ -2,6 +2,7 @@ package org.sample;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 
 import java.util.*;
@@ -9,13 +10,32 @@ import java.util.*;
 @State(Scope.Benchmark)
 public class ListToStringBuilderBenchmark {
 
-    private List<String> arrayList5 = fillListWithRandomStrings(new ArrayList<String>(5), 5);
-    private List<String> arrayList100 = fillListWithRandomStrings(new ArrayList<String>(100), 100);
-    private List<String> arrayList1000 = fillListWithRandomStrings(new ArrayList<String>(1000), 1000);
+    private List<String> arrayList5 = new ArrayList<String>(5);
+    private List<String> arrayList100 = new ArrayList<String>(100);
+    private List<String> arrayList1000 = new ArrayList<String>(1000);
 
-    private List<String> linkedList5 = fillListWithRandomStrings(new LinkedList<String>(), 5);
-    private List<String> linkedList100 = fillListWithRandomStrings(new LinkedList<String>(), 100);
-    private List<String> linkedList1000 = fillListWithRandomStrings(new LinkedList<String>(), 1000);
+    private List<String> linkedList5 = new LinkedList<String>();
+    private List<String> linkedList100 = new LinkedList<String>();
+    private List<String> linkedList1000 = new LinkedList<String>();
+
+    @Setup
+    public void setUp() {
+        for (int i = 0; i < 1000; i++) {
+            String uuid = UUID.randomUUID().toString();
+            if (i < 5) {
+                arrayList5.add(uuid);
+                linkedList5.add(uuid);
+            }
+            if (i < 100) {
+                arrayList100.add(uuid);
+                linkedList100.add(uuid);
+            }
+            if (i < 1000) {
+                arrayList1000.add(uuid);
+                linkedList1000.add(uuid);
+            }
+        }
+    }
 
     @Benchmark
     public void testArrayList5IfFirst() {
@@ -134,13 +154,6 @@ public class ListToStringBuilderBenchmark {
     @Benchmark
     public void testLinkedList1000SeparatorCharForEach() {
         ListToStringBuilder.toStringSeparatorCharForEach(linkedList1000);
-    }
-
-    private List<String> fillListWithRandomStrings(List<String> list, int size) {
-        for (int i = 0; i < size; i++) {
-            list.add(UUID.randomUUID().toString());
-        }
-        return list;
     }
 
 }
